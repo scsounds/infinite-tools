@@ -11,11 +11,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1
     },
-    ...["tools", "about", "privacy"].map((path) => ({
+    ...["tools", "infinite-edits", "about", "privacy"].map((path) => ({
       url: `${siteUrl}/${path}`,
       lastModified: now,
       changeFrequency: "monthly" as const,
-      priority: path === "tools" ? 0.9 : 0.5
+      priority: path === "tools" || path === "infinite-edits" ? 0.9 : 0.5
     })),
     ...categories.map((category) => ({
       url: `${siteUrl}/tools/category/${category.id}`,

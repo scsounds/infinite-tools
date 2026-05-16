@@ -4,6 +4,7 @@ import { Music2, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const nav = [
+  { href: "/infinite-edits", label: "Edits" },
   { href: "/tools", label: "Tools" },
   { href: "/about", label: "About" },
   { href: "/privacy", label: "Privacy" }

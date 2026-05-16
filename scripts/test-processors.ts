@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 
 import { estimateBpmFromSamples } from "../lib/processors/audio.ts";
+import { generateTimelineClips } from "../lib/infinite-edits/engine.ts";
+import { getEditPreset } from "../lib/infinite-edits/presets.ts";
 import { crc32 } from "../lib/processors/hash.ts";
 import { cleanHashtags, countText, formatTimestamp, shiftSubtitleTimestamps } from "../lib/processors/text.ts";
 
@@ -27,6 +29,27 @@ assert.equal(
 );
 assert.equal(formatTimestamp(1.9996, ","), "00:00:02,000");
 assert.equal(crc32(new TextEncoder().encode("123456789").buffer), "cbf43926");
+
+const editClips = generateTimelineClips(
+  [
+    { id: "visual-1", name: "clip one.mp4", kind: "video", duration: 10 },
+    { id: "visual-2", name: "still.png", kind: "image" }
+  ],
+  {
+    duration: 12,
+    bpm: 120,
+    confidence: 80,
+    beats: Array.from({ length: 25 }, (_, index) => ({ index, time: index * 0.5, strength: index % 4 === 0 ? 1 : 0.6 })),
+    transients: [],
+    energyFrames: [],
+    waveform: [],
+    sections: [{ id: "s1", label: "impact", start: 0, end: 12, energy: 0.8, intensity: "high" }]
+  },
+  getEditPreset("dubstep")
+);
+assert.ok(editClips.length >= 6, "dubstep grammar should create a dense beat edit");
+assert.equal(editClips[0].start, 0);
+assert.ok(editClips.some((clip) => clip.transition === "glitch" || clip.transition === "stutter"));
 
 console.log("processor tests passed");
 
