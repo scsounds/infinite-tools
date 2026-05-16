@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+@source "../app/**/*.{ts,tsx}";
+@source "../apps/**/*.{ts,tsx}";
+@source "../components/**/*.{ts,tsx}";
+@source "../hooks/**/*.{ts,tsx}";
+@source "../lib/**/*.{ts,tsx}";
+
+:root {
+  color-scheme: dark;
+  --background: #08090d;
+  --foreground: #f5f1e8;
+  --muted: #a9a69e;
+  --panel: rgba(18, 20, 28, 0.78);
+  --panel-solid: #12141c;
+  --border: rgba(229, 221, 199, 0.14);
+  --cyan: #63e6e2;
+  --rose: #ff6b9a;
+  --amber: #ffd166;
+  --green: #8ee6a7;
+  --blue: #93b7ff;
+  --danger: #ff7a7a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(circle at 18% 10%, rgba(99, 230, 226, 0.11), transparent 26rem),
+    radial-gradient(circle at 82% 18%, rgba(255, 107, 154, 0.08), transparent 30rem),
+    linear-gradient(180deg, #08090d 0%, #0d1018 48%, #08090d 100%);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+  background-size: 100% 4px, 4px 100%;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), transparent 80%);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(99, 230, 226, 0.28);
+}
+
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.12;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.4'/%3E%3C/svg%3E");
+}
+
+.glass {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.26);
+  backdrop-filter: blur(18px);
+}
+
+.mono {
+  font-family: var(--font-geist-mono), "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
+.crt-glow {
+  text-shadow:
+    0 0 18px rgba(99, 230, 226, 0.24),
+    0 0 42px rgba(255, 107, 154, 0.12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
